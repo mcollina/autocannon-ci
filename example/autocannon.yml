@@ -1,0 +1,14 @@
+server: ./server.js
+benchmarks:
+  root:
+    connections: 100
+    duration: 5
+    url: http://localhost:3000
+  b:
+    connections: 100
+    duration: 5
+    url: http://localhost:3000/b
+storage:
+  type: fs
+  path: perf-results
+flamegraphs: true

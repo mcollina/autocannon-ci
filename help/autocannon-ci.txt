@@ -1,0 +1,10 @@
+Usage: autocannon-ci [OPTS]
+
+Runs the benchmarks configured in the autocannon-ci configuration file, and
+save them according to the storage configured in the config file. The job id
+is used to identify the single run.
+
+Options:
+
+  --config/-c CONFIG      Use the given config file; default: `autocannon.yml`.
+  --job/-j ID             Use the specific job id.
