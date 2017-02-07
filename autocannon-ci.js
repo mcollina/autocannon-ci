@@ -14,6 +14,8 @@ const help = require('help-me')({
   dir: 'help',
   help: 'autocannon-ci.txt'
 })
+const storage = require('./lib/storage')
+const fsBlobStorage = require('fs-blob-store')
 
 function hasFile (file) {
   try {
@@ -54,6 +56,11 @@ function start () {
   }
 
   const runner = new Runner(config, args.job, path.dirname(path.resolve(args.config)))
+
+  if (config.storage && config.storage.type === 'fs') {
+    const backing = fsBlobStorage(path.resolve(config.storage.path || process.cwd()))
+    storage(backing, runner)
+  }
 
   runner.on('server', function (data) {
     console.log(chalk.green(`==> Started server`))

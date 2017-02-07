@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/mcollina/autocannon-ci#readme",
   "devDependencies": {
+    "concat": "0.0.1-security",
+    "concat-stream": "^1.6.0",
     "pre-commit": "^1.2.2",
     "rimraf": "^2.5.4",
     "snazzy": "^6.0.0",

@@ -7,7 +7,7 @@ const Runner = require('../lib/runner')
 const isWin = /^win/.test(process.platform)
 const nodePath = isWin ? ('"' + process.argv[0] + '"') : process.argv[0]
 
-t.plan(10)
+t.plan(11)
 
 const runner = new Runner({
   server: './server.js',
@@ -24,6 +24,8 @@ const runner = new Runner({
     }
   }
 }, 42, __dirname)
+
+t.equal(runner.jobId, 42)
 
 const urls = [
   'http://localhost:3000',
