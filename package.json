@@ -7,7 +7,7 @@
     "autocannon-ci": "./autocannon-ci.js"
   },
   "scripts": {
-    "test": "standard | snazzy && tap test/*"
+    "test": "standard | snazzy && tap test/*.test.js"
   },
   "precommit": "test",
   "repository": {
@@ -29,6 +29,7 @@
   "homepage": "https://github.com/mcollina/autocannon-ci#readme",
   "devDependencies": {
     "pre-commit": "^1.2.2",
+    "rimraf": "^2.5.4",
     "snazzy": "^6.0.0",
     "standard": "^8.6.0",
     "tap": "^9.0.3"

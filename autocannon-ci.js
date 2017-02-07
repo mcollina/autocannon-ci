@@ -55,9 +55,6 @@ function start () {
 
   const runner = new Runner(config, args.job, path.dirname(path.resolve(args.config)))
 
-  // TODO liten for progress events and display a bar
-  runner.run()
-
   runner.on('server', function (data) {
     console.log(chalk.green(`==> Started server`))
     console.log(chalk.green(`    url: ${data.url}`))
