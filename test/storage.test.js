@@ -1,70 +1,173 @@
 'use strict'
 
 const t = require('tap')
-const storage = require('../lib/storage')
+const Storage = require('../lib/storage')
 const abs = require('abstract-blob-store')
 const concat = require('concat-stream')
 const EE = require('events')
 
-const runner = new EE()
 const backing = abs()
 
-t.plan(4)
+var storage = Storage(backing)
 
-runner.jobId = 42
+t.test('first run', function (t) {
+  t.plan(5)
 
-storage(backing, runner)
+  const runner = new EE()
+  runner.jobId = 42
 
-var cannon = new EE()
+  storage.wire(runner)
 
-runner.emit('bench', {
-  name: 'first',
-  meta: 'data'
-}, cannon)
+  var cannon = new EE()
 
-cannon.emit('done', {
-  are: 'results'
+  runner.emit('bench', {
+    name: 'first',
+    meta: 'data'
+  }, cannon)
+
+  cannon.emit('done', {
+    are: 'results'
+  })
+
+  cannon = new EE()
+
+  runner.emit('bench', {
+    name: 'second',
+    meta: 'data2'
+  }, cannon)
+
+  cannon.emit('done', {
+    are2: 'results'
+  })
+
+  runner.emit('done', [{
+    are: 'results'
+  }, {
+    are2: 'results'
+  }])
+
+  // this will wait for all the process.nextTick
+  // used by the dummy store
+  setImmediate(function () {
+    backing.createReadStream('meta.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          runs: [{
+            path: 'run-42'
+          }]
+        })
+      }))
+
+    backing.createReadStream('run-42/first/meta.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          name: 'first',
+          meta: 'data'
+        })
+      }))
+
+    backing.createReadStream('run-42/first/results.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          are: 'results'
+        })
+      }))
+
+    backing.createReadStream('run-42/second/meta.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          name: 'second',
+          meta: 'data2'
+        })
+      }))
+
+    backing.createReadStream('run-42/second/results.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          are2: 'results'
+        })
+      }))
+  })
 })
 
-cannon = new EE()
+t.test('second run', function (t) {
+  t.plan(5)
 
-runner.emit('bench', {
-  name: 'second',
-  meta: 'data2'
-}, cannon)
+  const runner = new EE()
+  runner.jobId = 43
 
-cannon.emit('done', {
-  are2: 'results'
-})
+  storage.wire(runner)
 
-process.nextTick(function () {
-  backing.createReadStream('run-42/first/meta.json')
-    .pipe(concat(function (data) {
-      t.deepEqual(JSON.parse(data), {
-        name: 'first',
-        meta: 'data'
-      })
-    }))
+  var cannon = new EE()
 
-  backing.createReadStream('run-42/first/results.json')
-    .pipe(concat(function (data) {
-      t.deepEqual(JSON.parse(data), {
-        are: 'results'
-      })
-    }))
+  runner.emit('bench', {
+    name: 'first',
+    meta: 'data'
+  }, cannon)
 
-  backing.createReadStream('run-42/second/meta.json')
-    .pipe(concat(function (data) {
-      t.deepEqual(JSON.parse(data), {
-        name: 'second',
-        meta: 'data2'
-      })
-    }))
+  cannon.emit('done', {
+    are: 'results'
+  })
 
-  backing.createReadStream('run-42/second/results.json')
-    .pipe(concat(function (data) {
-      t.deepEqual(JSON.parse(data), {
-        are2: 'results'
-      })
-    }))
+  cannon = new EE()
+
+  runner.emit('bench', {
+    name: 'second',
+    meta: 'data2'
+  }, cannon)
+
+  cannon.emit('done', {
+    are2: 'results'
+  })
+
+  runner.emit('done', [{
+    are: 'results'
+  }, {
+    are2: 'results'
+  }])
+
+  // this will wait for all the process.nextTick
+  // used by the dummy store
+  setImmediate(function () {
+    backing.createReadStream('meta.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          runs: [{
+            path: 'run-42'
+          }, {
+            path: 'run-43'
+          }]
+        })
+      }))
+
+    backing.createReadStream('run-43/first/meta.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          name: 'first',
+          meta: 'data'
+        })
+      }))
+
+    backing.createReadStream('run-43/first/results.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          are: 'results'
+        })
+      }))
+
+    backing.createReadStream('run-43/second/meta.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          name: 'second',
+          meta: 'data2'
+        })
+      }))
+
+    backing.createReadStream('run-43/second/results.json')
+      .pipe(concat(function (data) {
+        t.deepEqual(JSON.parse(data), {
+          are2: 'results'
+        })
+      }))
+  })
 })

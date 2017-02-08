@@ -3,6 +3,7 @@
 'use strict'
 
 const path = require('path')
+const debug = require('debug')('autocannon-ci:cli')
 const minimist = require('minimist')
 const fs = require('fs')
 const Runner = require('./lib/runner')
@@ -55,11 +56,12 @@ function start () {
     process.exit(1)
   }
 
-  const runner = new Runner(config, args.job, path.dirname(path.resolve(args.config)))
+  const wd = path.dirname(path.resolve(args.config))
+  const runner = new Runner(config, args.job, wd)
 
   if (config.storage && config.storage.type === 'fs') {
-    const backing = fsBlobStorage(path.resolve(config.storage.path || process.cwd()))
-    storage(backing, runner)
+    const backing = fsBlobStorage(path.resolve(path.join(wd, config.storage.path || 'perf-results')))
+    storage(backing).wire(runner)
   }
 
   runner.on('server', function (data) {
@@ -110,7 +112,13 @@ function cleanup (err) {
     children
       .map((p) => p.PID)
       .filter((p) => p !== process.pid)
-      .forEach((p) => process.kill(p, 'SIGKILL'))
+      .forEach((p) => {
+        try {
+          process.kill(p, 'SIGKILL')
+        } catch (err) {
+          debug(err)
+        }
+      })
 
     if (err) {
       process.emit('uncaughtException', err)
