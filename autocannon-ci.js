@@ -18,6 +18,11 @@ const help = require('help-me')({
 const storage = require('./lib/storage')
 const fsBlobStorage = require('fs-blob-store')
 
+// get the current node path for clean windows support
+const isWin = /^win/.test(process.platform)
+const nodePath = isWin ? ('"' + process.argv[0] + '"') : process.argv[0]
+const zeroX = path.join(path.dirname(require.resolve('0x')), 'cmd.js')
+
 function hasFile (file) {
   try {
     fs.accessSync(file)
@@ -29,14 +34,17 @@ function hasFile (file) {
 
 function start () {
   const args = minimist(process.argv, {
+    boolean: ['flamegraph'],
     integer: ['job'],
     alias: {
       config: 'c',
-      job: 'j'
+      job: 'j',
+      flamegraph: 'F'
     },
     default: {
       config: path.resolve('autocannon.yml'),
-      job: 1
+      job: 1,
+      flamegraph: false
     }
   })
 
@@ -56,8 +64,20 @@ function start () {
     process.exit(1)
   }
 
+  var exec = nodePath
+
+  if (args.flamegraph) {
+    if (isWin) {
+      console.error('flamegraphs are supported only on Linux and Mac OS X')
+      process.exit(1)
+    }
+
+    exec = zeroX
+    config.server = '--svg ' + config.server
+  }
+
   const wd = path.dirname(path.resolve(args.config))
-  const runner = new Runner(config, args.job, wd)
+  const runner = new Runner(config, args.job, wd, exec)
 
   if (config.storage && config.storage.type === 'fs') {
     const backing = fsBlobStorage(path.resolve(path.join(wd, config.storage.path || 'perf-results')))
@@ -100,6 +120,10 @@ if (require.main === module) {
 }
 
 function cleanup (err) {
+  if (err) {
+    console.error(err)
+  }
+
   process.removeListener('uncaughtException', cleanup)
   process.removeListener('beforeExit', cleanup)
 

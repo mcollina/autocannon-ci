@@ -23,7 +23,7 @@ const runner = new Runner({
       url: 'http://localhost:3000/b'
     }
   }
-}, 42, __dirname)
+}, 42, __dirname, nodePath)
 
 t.equal(runner.jobId, 42)
 

@@ -38,3 +38,6 @@ jspm_packages
 
 # test data
 perf-results
+
+# because Mac OS X
+.DS_Store

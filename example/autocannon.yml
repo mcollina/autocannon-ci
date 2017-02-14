@@ -11,4 +11,3 @@ benchmarks:
 storage:
   type: fs
   path: perf-results
-flamegraphs: true
