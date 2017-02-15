@@ -7,6 +7,7 @@ const concat = require('concat-stream')
 const EE = require('events')
 
 const backing = abs()
+const results = require('./result')
 
 var storage = Storage(backing)
 
@@ -49,11 +50,7 @@ t.test('first run', function (t) {
     are2: 'results'
   })
 
-  runner.emit('done', [{
-    are: 'results'
-  }, {
-    are2: 'results'
-  }])
+  runner.emit('done', results)
 
   // this will wait for all the process.nextTick
   // used by the dummy store
@@ -64,7 +61,8 @@ t.test('first run', function (t) {
           nextId: 43,
           runs: [{
             id: 42,
-            path: 'run-42'
+            path: 'run-42',
+            results
           }]
         })
       }))
@@ -131,11 +129,7 @@ t.test('second run', function (t) {
     are2: 'results'
   })
 
-  runner.emit('done', [{
-    are: 'results'
-  }, {
-    are2: 'results'
-  }])
+  runner.emit('done', results)
 
   // this will wait for all the process.nextTick
   // used by the dummy store
@@ -146,10 +140,12 @@ t.test('second run', function (t) {
           nextId: 44,
           runs: [{
             id: 43,
-            path: 'run-43'
+            path: 'run-43',
+            results
           }, {
             id: 42,
-            path: 'run-42'
+            path: 'run-42',
+            results
           }]
         })
       }))

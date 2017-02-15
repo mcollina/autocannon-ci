@@ -7,7 +7,7 @@ const Runner = require('../lib/runner')
 const isWin = /^win/.test(process.platform)
 const nodePath = isWin ? ('"' + process.argv[0] + '"') : process.argv[0]
 
-t.plan(11)
+t.plan(13)
 
 const runner = new Runner({
   server: './server.js',
@@ -59,6 +59,7 @@ runner.on('warmup', function (url) {
 runner.on('bench', function (data, cannon) {
   cannon.on('done', function (result) {
     t.ok('autocannon finished')
+    t.ok(result.title, 'result has title')
     results.push(result)
   })
 })

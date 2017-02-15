@@ -94,7 +94,7 @@ function start () {
 
       job = id
 
-      wire(run(config, job, wd, exec))
+      wire(run(config, job, wd, exec, args.flamegraph))
     })
     return
   }
@@ -102,18 +102,22 @@ function start () {
   wire(run(config, job || 1, wd, exec))
 }
 
-function run (config, job, wd, exec) {
+function run (config, job, wd, exec, flamegraph) {
   console.log(chalk.yellow(`==> Running job ${job}`))
   console.log()
 
   const runner = new Runner(config, job, wd, exec)
 
+  // pass this over to the storage engine
+  // we need this to generate the report afterwards
+  runner.flamegraph = flamegraph
+
   runner.on('server', function (data) {
     console.log(chalk.green(`==> Started server`))
-    console.log(chalk.green(`    url: ${data.url}`))
-    console.log(chalk.green(`    pid: ${data.pid}`))
-    console.log(chalk.green(`    cmd: ${data.cmd}`))
-    console.log(chalk.green(`    exe: ${data.exe}`))
+    console.log(chalk.green(`url: ${data.url}`))
+    console.log(chalk.green(`pid: ${data.pid}`))
+    console.log(chalk.green(`cmd: ${data.cmd.join(' ')}`))
+    console.log(chalk.green(`exe: ${data.exe}`))
     console.log()
   })
 
