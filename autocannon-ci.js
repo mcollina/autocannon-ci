@@ -15,7 +15,7 @@ const help = require('help-me')({
   dir: 'help',
   help: 'autocannon-ci.txt'
 })
-const storage = require('./lib/storage')
+const Storage = require('./lib/storage')
 const getBacking = require('./lib/get-backing')
 
 // get the current node path for clean windows support
@@ -43,7 +43,6 @@ function start () {
     },
     default: {
       config: path.resolve('autocannon.yml'),
-      job: 1,
       flamegraph: false
     }
   })
@@ -77,13 +76,37 @@ function start () {
   }
 
   const wd = path.dirname(path.resolve(args.config))
-  const runner = new Runner(config, args.job, wd, exec)
-
   const backing = getBacking(config, wd)
+  var storage
+  var wire = function () {}
+  var job = args.job
 
   if (backing) {
-    storage(backing).wire(runner)
+    storage = Storage(backing)
+    wire = storage.wire
   }
+
+  if (!job && storage) {
+    storage.nextJobId(function (err, id) {
+      if (err) {
+        throw err
+      }
+
+      job = id
+
+      wire(run(config, job, wd, exec))
+    })
+    return
+  }
+
+  wire(run(config, job || 1, wd, exec))
+}
+
+function run (config, job, wd, exec) {
+  console.log(chalk.yellow(`==> Running job ${job}`))
+  console.log()
+
+  const runner = new Runner(config, job, wd, exec)
 
   runner.on('server', function (data) {
     console.log(chalk.green(`==> Started server`))
@@ -111,6 +134,8 @@ function start () {
     console.error(err.message)
     process.exit(1)
   })
+
+  return runner
 }
 
 if (require.main === module) {

@@ -10,6 +10,15 @@ const backing = abs()
 
 var storage = Storage(backing)
 
+t.test('nextJobId with no status', function (t) {
+  t.plan(2)
+
+  storage.nextJobId(function (err, id) {
+    t.error(err)
+    t.equal(id, 1)
+  })
+})
+
 t.test('first run', function (t) {
   t.plan(5)
 
@@ -52,7 +61,9 @@ t.test('first run', function (t) {
     backing.createReadStream('meta.json')
       .pipe(concat(function (data) {
         t.deepEqual(JSON.parse(data), {
+          nextId: 43,
           runs: [{
+            id: 42,
             path: 'run-42'
           }]
         })
@@ -132,10 +143,13 @@ t.test('second run', function (t) {
     backing.createReadStream('meta.json')
       .pipe(concat(function (data) {
         t.deepEqual(JSON.parse(data), {
+          nextId: 44,
           runs: [{
-            path: 'run-42'
-          }, {
+            id: 43,
             path: 'run-43'
+          }, {
+            id: 42,
+            path: 'run-42'
           }]
         })
       }))
@@ -169,5 +183,14 @@ t.test('second run', function (t) {
           are2: 'results'
         })
       }))
+  })
+})
+
+t.test('nextJobId with status', function (t) {
+  t.plan(2)
+
+  storage.nextJobId(function (err, id) {
+    t.error(err)
+    t.equal(id, 44)
   })
 })
