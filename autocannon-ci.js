@@ -16,7 +16,7 @@ const help = require('help-me')({
   help: 'autocannon-ci.txt'
 })
 const storage = require('./lib/storage')
-const fsBlobStorage = require('fs-blob-store')
+const getBacking = require('./lib/get-backing')
 
 // get the current node path for clean windows support
 const isWin = /^win/.test(process.platform)
@@ -79,8 +79,9 @@ function start () {
   const wd = path.dirname(path.resolve(args.config))
   const runner = new Runner(config, args.job, wd, exec)
 
-  if (config.storage && config.storage.type === 'fs') {
-    const backing = fsBlobStorage(path.resolve(path.join(wd, config.storage.path || 'perf-results')))
+  const backing = getBacking(config, wd)
+
+  if (backing) {
     storage(backing).wire(runner)
   }
 
