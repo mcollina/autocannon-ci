@@ -1,0 +1,617 @@
+{
+  "nextId": 7,
+  "runs": [
+    {
+      "id": 6,
+      "path": "run-6",
+      "results": [
+        {
+          "title": "root",
+          "url": "http://localhost:3000",
+          "requests": {
+            "average": 18648,
+            "mean": 18648,
+            "stddev": 700.58,
+            "min": 17568,
+            "max": 19727,
+            "total": 93237,
+            "sent": 93337
+          },
+          "latency": {
+            "average": 4.88,
+            "mean": 4.88,
+            "stddev": 1.99,
+            "min": 0,
+            "max": 58,
+            "p50": 5,
+            "p75": 5,
+            "p90": 7,
+            "p99": 11,
+            "p999": 31,
+            "p9999": 52,
+            "p99999": 58
+          },
+          "throughput": {
+            "average": 2057830.4,
+            "mean": 2057830.4,
+            "stddev": 72977.81,
+            "min": 1900544,
+            "max": 2228223,
+            "total": 10349307
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:47:21.320Z",
+          "finish": "2017-02-15T18:47:26.366Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 93237,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        },
+        {
+          "title": "b",
+          "url": "http://localhost:3000/b",
+          "requests": {
+            "average": 2641,
+            "mean": 2641,
+            "stddev": 48.99,
+            "min": 2600,
+            "max": 2701,
+            "total": 13200,
+            "sent": 13300
+          },
+          "latency": {
+            "average": 37.4,
+            "mean": 37.4,
+            "stddev": 2.41,
+            "min": 31,
+            "max": 68,
+            "p50": 37,
+            "p75": 38,
+            "p90": 39,
+            "p99": 42,
+            "p999": 66,
+            "p9999": 68,
+            "p99999": 68
+          },
+          "throughput": {
+            "average": 309657.6,
+            "mean": 309657.6,
+            "stddev": 8026.49,
+            "min": 294912,
+            "max": 327679,
+            "total": 1531200
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:47:37.806Z",
+          "finish": "2017-02-15T18:47:42.853Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 13200,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "path": "run-5",
+      "results": [
+        {
+          "title": "root",
+          "url": "http://localhost:3000",
+          "requests": {
+            "average": 16974.41,
+            "mean": 16974.41,
+            "stddev": 1878.67,
+            "min": 14488,
+            "max": 19391,
+            "total": 84851,
+            "sent": 84951
+          },
+          "latency": {
+            "average": 5.39,
+            "mean": 5.39,
+            "stddev": 2.37,
+            "min": 0,
+            "max": 73,
+            "p50": 5,
+            "p75": 6,
+            "p90": 7,
+            "p99": 11,
+            "p999": 37,
+            "p9999": 68,
+            "p99999": 73
+          },
+          "throughput": {
+            "average": 1887436.8,
+            "mean": 1887436.8,
+            "stddev": 216962.77,
+            "min": 1572864,
+            "max": 2228223,
+            "total": 9418461
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:45:39.608Z",
+          "finish": "2017-02-15T18:45:44.664Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 84851,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        },
+        {
+          "title": "b",
+          "url": "http://localhost:3000/b",
+          "requests": {
+            "average": 2684.2,
+            "mean": 2684.2,
+            "stddev": 42.06,
+            "min": 2600,
+            "max": 2717,
+            "total": 13416,
+            "sent": 13516
+          },
+          "latency": {
+            "average": 36.85,
+            "mean": 36.85,
+            "stddev": 4.37,
+            "min": 29,
+            "max": 100,
+            "p50": 37,
+            "p75": 38,
+            "p90": 38,
+            "p99": 41,
+            "p999": 97,
+            "p9999": 99,
+            "p99999": 100
+          },
+          "throughput": {
+            "average": 316211.2,
+            "mean": 316211.2,
+            "stddev": 6553.6,
+            "min": 294912,
+            "max": 327679,
+            "total": 1556256
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:45:57.011Z",
+          "finish": "2017-02-15T18:46:02.069Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 13416,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "path": "run-4",
+      "results": [
+        {
+          "title": "root",
+          "url": "http://localhost:3000",
+          "requests": {
+            "average": 15658.4,
+            "mean": 15658.4,
+            "stddev": 2219.84,
+            "min": 12880,
+            "max": 18527,
+            "total": 78297,
+            "sent": 78397
+          },
+          "latency": {
+            "average": 5.9,
+            "mean": 5.9,
+            "stddev": 3.94,
+            "min": 0,
+            "max": 118,
+            "p50": 5,
+            "p75": 7,
+            "p90": 8,
+            "p99": 15,
+            "p999": 65,
+            "p9999": 111,
+            "p99999": 118
+          },
+          "throughput": {
+            "average": 1723596.8,
+            "mean": 1723596.8,
+            "stddev": 253481.19,
+            "min": 1376256,
+            "max": 2097151,
+            "total": 8690967
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:42:58.283Z",
+          "finish": "2017-02-15T18:43:03.332Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 78297,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        },
+        {
+          "title": "b",
+          "url": "http://localhost:3000/b",
+          "requests": {
+            "average": 2681,
+            "mean": 2681,
+            "stddev": 40,
+            "min": 2600,
+            "max": 2701,
+            "total": 13400,
+            "sent": 13500
+          },
+          "latency": {
+            "average": 36.96,
+            "mean": 36.96,
+            "stddev": 2.38,
+            "min": 29,
+            "max": 63,
+            "p50": 37,
+            "p75": 38,
+            "p90": 38,
+            "p99": 43,
+            "p999": 61,
+            "p9999": 63,
+            "p99999": 63
+          },
+          "throughput": {
+            "average": 316211.2,
+            "mean": 316211.2,
+            "stddev": 6553.6,
+            "min": 294912,
+            "max": 327679,
+            "total": 1554400
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:43:14.852Z",
+          "finish": "2017-02-15T18:43:19.896Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 13400,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "path": "run-3",
+      "results": [
+        {
+          "title": "root",
+          "url": "http://localhost:3000",
+          "requests": {
+            "average": 17378.41,
+            "mean": 17378.41,
+            "stddev": 3024.69,
+            "min": 11816,
+            "max": 20879,
+            "total": 86885,
+            "sent": 86985
+          },
+          "latency": {
+            "average": 5.27,
+            "mean": 5.27,
+            "stddev": 3,
+            "min": 0,
+            "max": 53,
+            "p50": 5,
+            "p75": 6,
+            "p90": 8,
+            "p99": 15,
+            "p999": 43,
+            "p9999": 52,
+            "p99999": 53
+          },
+          "throughput": {
+            "average": 1939865.6,
+            "mean": 1939865.6,
+            "stddev": 319987.54,
+            "min": 1310720,
+            "max": 2359295,
+            "total": 9644235
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:40:24.774Z",
+          "finish": "2017-02-15T18:40:29.822Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 86885,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        },
+        {
+          "title": "b",
+          "url": "http://localhost:3000/b",
+          "requests": {
+            "average": 2681,
+            "mean": 2681,
+            "stddev": 40,
+            "min": 2600,
+            "max": 2701,
+            "total": 13400,
+            "sent": 13500
+          },
+          "latency": {
+            "average": 36.9,
+            "mean": 36.9,
+            "stddev": 2.12,
+            "min": 30,
+            "max": 60,
+            "p50": 37,
+            "p75": 37,
+            "p90": 38,
+            "p99": 41,
+            "p999": 60,
+            "p9999": 60,
+            "p99999": 60
+          },
+          "throughput": {
+            "average": 316211.2,
+            "mean": 316211.2,
+            "stddev": 6553.6,
+            "min": 294912,
+            "max": 327679,
+            "total": 1554400
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:40:41.098Z",
+          "finish": "2017-02-15T18:40:46.151Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 13400,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "path": "run-2",
+      "results": [
+        {
+          "title": "root",
+          "url": "http://localhost:3000",
+          "requests": {
+            "average": 18308,
+            "mean": 18308,
+            "stddev": 1196.84,
+            "min": 16064,
+            "max": 19407,
+            "total": 91537,
+            "sent": 91637
+          },
+          "latency": {
+            "average": 4.97,
+            "mean": 4.97,
+            "stddev": 2.06,
+            "min": 0,
+            "max": 53,
+            "p50": 5,
+            "p75": 5,
+            "p90": 6,
+            "p99": 11,
+            "p999": 38,
+            "p9999": 53,
+            "p99999": 53
+          },
+          "throughput": {
+            "average": 2038169.6,
+            "mean": 2038169.6,
+            "stddev": 133346.04,
+            "min": 1769472,
+            "max": 2228223,
+            "total": 10160607
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:38:52.337Z",
+          "finish": "2017-02-15T18:38:57.381Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 91537,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        },
+        {
+          "title": "b",
+          "url": "http://localhost:3000/b",
+          "requests": {
+            "average": 2680.6,
+            "mean": 2680.6,
+            "stddev": 31,
+            "min": 2620,
+            "max": 2701,
+            "total": 13400,
+            "sent": 13500
+          },
+          "latency": {
+            "average": 36.8,
+            "mean": 36.8,
+            "stddev": 2.3,
+            "min": 29,
+            "max": 64,
+            "p50": 37,
+            "p75": 37,
+            "p90": 38,
+            "p99": 40,
+            "p999": 61,
+            "p9999": 64,
+            "p99999": 64
+          },
+          "throughput": {
+            "average": 312934.41,
+            "mean": 312934.41,
+            "stddev": 8026.49,
+            "min": 294912,
+            "max": 327679,
+            "total": 1554400
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:39:09.003Z",
+          "finish": "2017-02-15T18:39:14.049Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 13400,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "path": "run-1",
+      "results": [
+        {
+          "title": "root",
+          "url": "http://localhost:3000",
+          "requests": {
+            "average": 18155.2,
+            "mean": 18155.2,
+            "stddev": 1446.4,
+            "min": 16528,
+            "max": 20255,
+            "total": 90781,
+            "sent": 90881
+          },
+          "latency": {
+            "average": 5.02,
+            "mean": 5.02,
+            "stddev": 2.25,
+            "min": 0,
+            "max": 55,
+            "p50": 5,
+            "p75": 5,
+            "p90": 7,
+            "p99": 12,
+            "p999": 31,
+            "p9999": 51,
+            "p99999": 53
+          },
+          "throughput": {
+            "average": 2025062.4,
+            "mean": 2025062.4,
+            "stddev": 172647.26,
+            "min": 1835008,
+            "max": 2359295,
+            "total": 10076691
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:38:18.897Z",
+          "finish": "2017-02-15T18:38:23.938Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 90781,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        },
+        {
+          "title": "b",
+          "url": "http://localhost:3000/b",
+          "requests": {
+            "average": 2661,
+            "mean": 2661,
+            "stddev": 48.99,
+            "min": 2600,
+            "max": 2701,
+            "total": 13300,
+            "sent": 13400
+          },
+          "latency": {
+            "average": 37.14,
+            "mean": 37.14,
+            "stddev": 3.33,
+            "min": 32,
+            "max": 86,
+            "p50": 37,
+            "p75": 38,
+            "p90": 38,
+            "p99": 42,
+            "p999": 83,
+            "p9999": 85,
+            "p99999": 86
+          },
+          "throughput": {
+            "average": 312934.41,
+            "mean": 312934.41,
+            "stddev": 8026.49,
+            "min": 294912,
+            "max": 327679,
+            "total": 1542800
+          },
+          "errors": 0,
+          "timeouts": 0,
+          "duration": 5,
+          "start": "2017-02-15T18:38:35.769Z",
+          "finish": "2017-02-15T18:38:40.834Z",
+          "connections": 100,
+          "pipelining": 1,
+          "non2xx": 0,
+          "1xx": 0,
+          "2xx": 13300,
+          "3xx": 0,
+          "4xx": 0,
+          "5xx": 0
+        }
+      ]
+    }
+  ]
+}
