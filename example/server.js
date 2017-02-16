@@ -5,7 +5,7 @@ const server = http.createServer(handle)
 
 function handle (req, res) {
   if (req.url === '/b') {
-    setTimeout(loop, 30, res)
+    setTimeout(loop, 25, res)
   } else {
     res.end('hello world')
   }

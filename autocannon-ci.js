@@ -17,6 +17,8 @@ const help = require('help-me')({
 })
 const Storage = require('./lib/storage')
 const getBacking = require('./lib/get-backing')
+const compare = require('./lib/compare')
+const table = require('table')
 
 // get the current node path for clean windows support
 const isWin = /^win/.test(process.platform)
@@ -84,6 +86,15 @@ function start () {
   if (backing) {
     storage = Storage(backing)
     wire = storage.wire
+    storage.on('meta', function (meta) {
+      const last = meta.runs[0]
+      const prev = meta.runs[1]
+      if (last && prev) {
+        console.log(`==> Comparing ${last.id} with ${prev.id}`)
+        console.log()
+        printComparisonTable(compare(last.results, prev.results))
+      }
+    })
   }
 
   if (!job && storage) {
@@ -115,7 +126,6 @@ function run (config, job, wd, exec, flamegraph) {
   runner.on('server', function (data) {
     console.log(chalk.green(`==> Started server`))
     console.log(chalk.green(`url: ${data.url}`))
-    console.log(chalk.green(`pid: ${data.pid}`))
     console.log(chalk.green(`cmd: ${data.cmd.join(' ')}`))
     console.log(chalk.green(`exe: ${data.exe}`))
     console.log()
@@ -140,6 +150,50 @@ function run (config, job, wd, exec, flamegraph) {
   })
 
   return runner
+}
+
+function printComparisonTable (results, a, b) {
+  const keys = Object.keys(results)
+  const columns = Object.keys(results)
+
+  columns.unshift('Stat')
+
+  const out = table.table([
+    columns.map(k => chalk.bold(k)),
+    row('req/s', results, keys, 'requests'),
+    row('throughput', results, keys, 'throughput'),
+    row('latency', results, keys, 'latency')
+  ], {
+    border: table.getBorderCharacters('void'),
+    columnDefault: {
+      paddingLeft: 0,
+      paddingRight: 1
+    },
+    drawHorizontalLine: () => false
+  })
+
+  console.log(out)
+}
+
+function row (title, results, keys, prop) {
+  const res = keys.map(function (k) {
+    const base = results[k][prop]
+    var color = noColor
+    if (base.aWins) {
+      color = chalk.green
+    } else if (base.bWins) {
+      color = chalk.red
+    }
+    return color(base.difference + ' ' + base.significant)
+  })
+
+  res.unshift(title)
+
+  return res
+}
+
+function noColor (a) {
+  return a
 }
 
 if (require.main === module) {

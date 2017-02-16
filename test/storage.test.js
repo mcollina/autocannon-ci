@@ -21,7 +21,7 @@ t.test('nextJobId with no status', function (t) {
 })
 
 t.test('first run', function (t) {
-  t.plan(5)
+  t.plan(6)
 
   const runner = new EE()
   runner.jobId = 42
@@ -48,6 +48,17 @@ t.test('first run', function (t) {
 
   cannon.emit('done', {
     are2: 'results'
+  })
+
+  storage.once('meta', function (data) {
+    t.deepEqual(data, {
+      nextId: 43,
+      runs: [{
+        id: 42,
+        path: 'run-42',
+        results
+      }]
+    })
   })
 
   runner.emit('done', results)
@@ -100,7 +111,7 @@ t.test('first run', function (t) {
 })
 
 t.test('second run', function (t) {
-  t.plan(5)
+  t.plan(6)
 
   const runner = new EE()
   runner.jobId = 43
@@ -127,6 +138,21 @@ t.test('second run', function (t) {
 
   cannon.emit('done', {
     are2: 'results'
+  })
+
+  storage.once('meta', function (data) {
+    t.deepEqual(data, {
+      nextId: 44,
+      runs: [{
+        id: 43,
+        path: 'run-43',
+        results
+      }, {
+        id: 42,
+        path: 'run-42',
+        results
+      }]
+    })
   })
 
   runner.emit('done', results)
