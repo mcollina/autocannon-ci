@@ -1,6 +1,6 @@
 {
   "name": "autocannon-ci",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "run your benchmarks as part of your dev flow, for Node.js",
   "main": "autocannon-ci.js",
   "bin": {
