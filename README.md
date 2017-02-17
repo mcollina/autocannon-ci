@@ -4,7 +4,13 @@
 
 **autocannon-ci** can store the results and generate the flamegraphs of
 a HTTP/1.1 benchmark for Node.js
-Run your [autocannon][] benchmarks as part of your CI/dev flow, for Node.js
+Run your [autocannon][] benchmarks as part of your CI/dev flow, for Node.js.
+
+It can also generate a little website containing all the result of your
+benchmarking, including flamegraphs:
+
+* [Dashboard](https://s3-us-west-2.amazonaws.com/autocannon-ci-test/index.html)
+* [Job page](https://s3-us-west-2.amazonaws.com/autocannon-ci-test/run-2/index.html)
 
 ## Install
 
