@@ -2,12 +2,13 @@
 
 # autocannon-ci
 
-**autocannon-ci** can store the results and generate the flamegraphs of
-a HTTP/1.1 benchmark for Node.js
-Run your [autocannon][] benchmarks as part of your CI/dev flow, for Node.js.
+**autocannon-ci** can store the results and generate the
+[flamegraphs][0x] of your HTTP/1.1 benchmarks of Node.js server. 
+Run your [autocannon][] benchmarks as
+part of your CI/dev flow, for Node.js.
 
 It can also generate a little website containing all the result of your
-benchmarking, including [flamegraphs with 0x](https://github.com/davidmarkclements/0://github.com/davidmarkclements/0x):
+benchmarking, including [flamegraphs with 0x][0x]:
 
 * [Dashboard](https://s3-us-west-2.amazonaws.com/autocannon-ci-test/index.html)
 * [Job page](https://s3-us-west-2.amazonaws.com/autocannon-ci-test/run-2/index.html)
@@ -119,3 +120,4 @@ This project was kindly sponsored by [nearForm](http://nearform.com).
 MIT
 
 [autocannon]: https://github.com/mcollina/autocannon
+[0x]: https://github.com/davidmarkclements/0x
