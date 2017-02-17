@@ -4,6 +4,7 @@
 
 const path = require('path')
 const debug = require('debug')('autocannon-ci:cli')
+const commist = require('commist')()
 const minimist = require('minimist')
 const fs = require('fs')
 const Runner = require('./lib/runner')
@@ -25,6 +26,19 @@ const isWin = /^win/.test(process.platform)
 const nodePath = isWin ? ('"' + process.argv[0] + '"') : process.argv[0]
 const zeroX = path.join(path.dirname(require.resolve('0x')), 'cmd.js')
 
+const res = commist
+  .register('run', runCmd)
+  .register('compare', compareCmd)
+  .register('help', help.toStdout)
+  .parse(process.argv.splice(2))
+
+if (res) {
+  runCmd(res)
+}
+
+process.on('uncaughtException', cleanup)
+process.on('beforeExit', cleanup)
+
 function hasFile (file) {
   try {
     fs.accessSync(file)
@@ -34,8 +48,8 @@ function hasFile (file) {
   }
 }
 
-function start () {
-  const args = minimist(process.argv, {
+function runCmd (argv) {
+  const args = minimist(argv, {
     boolean: ['flamegraph'],
     integer: ['job'],
     alias: {
@@ -90,7 +104,7 @@ function start () {
       const last = meta.runs[0]
       const prev = meta.runs[1]
       if (last && prev) {
-        console.log(`==> Comparing ${last.id} with ${prev.id}`)
+        console.log(`==> Comparing ${last.id} against ${prev.id}`)
         console.log()
         printComparisonTable(compare(last.results, prev.results))
       }
@@ -209,15 +223,67 @@ function row (title, results, keys, prop, positive, negative) {
   return res
 }
 
-function noColor (a) {
-  return a
+function compareCmd (argv) {
+  const args = minimist(argv, {
+    alias: {
+      config: 'c'
+    },
+    default: {
+      config: path.resolve('autocannon.yml')
+    }
+  })
+
+  if (!hasFile(args.config)) {
+    help.toStdout('compare')
+    return
+  }
+
+  // should never throw, we have just
+  // checked if we can access this
+  const data = fs.readFileSync(args.config, 'utf8')
+
+  try {
+    var config = YAML.parse(data)
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+
+  const wd = path.dirname(path.resolve(args.config))
+  const backing = getBacking(config, wd)
+
+  if (!backing) {
+    console.error('impossible to compare if there is no storage')
+    process.exit(1)
+  }
+
+  const storage = Storage(backing)
+
+  storage.fetchMeta(function (err, meta) {
+    if (err) {
+      throw err
+    }
+
+    const last = find(args._[0]) || meta.runs[0]
+    const prev = find(args._[1]) || meta.runs[1]
+
+    if (last && prev) {
+      console.log(`Comparing ${last.id} against ${prev.id}`)
+      console.log()
+      printComparisonTable(compare(last.results, prev.results))
+    } else {
+      console.log('No runs available to compare')
+    }
+
+    function find (num) {
+      num = parseInt(num)
+      return meta.runs.filter(r => r.id === num)[0]
+    }
+  })
 }
 
-if (require.main === module) {
-  start()
-
-  process.on('uncaughtException', cleanup)
-  process.on('beforeExit', cleanup)
+function noColor (a) {
+  return a
 }
 
 function cleanup (err) {

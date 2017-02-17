@@ -208,6 +208,15 @@ t.test('second run', function (t) {
   })
 })
 
+t.test('fetchMeta', function (t) {
+  t.plan(2)
+
+  storage.fetchMeta(function (err, meta) {
+    t.error(err)
+    t.equal(meta.runs.length, 2)
+  })
+})
+
 t.test('nextJobId with status', function (t) {
   t.plan(2)
 

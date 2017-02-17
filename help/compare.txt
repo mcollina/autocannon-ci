@@ -1,0 +1,8 @@
+Usage: autocannon-ci compare [OPTS] [A] [B]
+
+Compare the job with id A against the job id B. A and B are defaulted to the
+latest two jobs.
+
+Options:
+
+  --config/-c CONFIG      Use the given config file; default: `autocannon.yml`.

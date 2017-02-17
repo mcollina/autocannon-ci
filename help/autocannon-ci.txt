@@ -1,10 +1,12 @@
-Usage: autocannon-ci [OPTS]
+Usage: autocannon-ci [command]
 
-Runs the benchmarks configured in the autocannon-ci configuration file, and
-save them according to the storage configured in the config file. The job id
-is used to identify the single run.
+autocannon-ci is a tool to run multiple HTTP/1.1 benchmarks, and generate the relative
+flamegraphs, with the help of 0x.
 
-Options:
+Available commands:
 
-  --config/-c CONFIG      Use the given config file; default: `autocannon.yml`.
-  --job/-j ID             Use the specific job id.
+  * run (default)
+  * compare
+  * help
+
+Launch 'autocannon-ci help [command]' to know more about the commands.
