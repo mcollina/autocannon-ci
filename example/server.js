@@ -7,7 +7,7 @@ function handle (req, res) {
   if (req.url === '/b') {
     setTimeout(loop, 25, res)
   } else {
-    res.end('hello world')
+    setTimeout(loop, 5, res)
   }
 }
 

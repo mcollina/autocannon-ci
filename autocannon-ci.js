@@ -156,13 +156,25 @@ function printComparisonTable (results, a, b) {
   const keys = Object.keys(results)
   const columns = Object.keys(results)
 
+  const areEqual = keys.reduce(function (acc, k) {
+    return acc && results[k].equal
+  }, true)
+
+  if (areEqual) {
+    console.log(`The two jobs throughput is statistically ${chalk.bold('equal')}`)
+  } else {
+    console.log(`The two jobs throughput is ${chalk.bold('not')} statistically ${chalk.bold('equal')}`)
+  }
+
+  console.log('')
+
   columns.unshift('Stat')
 
   const out = table.table([
-    columns.map(k => chalk.bold(k)),
-    row('req/s', results, keys, 'requests'),
-    row('throughput', results, keys, 'throughput'),
-    row('latency', results, keys, 'latency')
+    columns.map(k => chalk.cyan(k)),
+    row('req/s', results, keys, 'requests', chalk.green, chalk.red),
+    row('throughput', results, keys, 'throughput', chalk.green, chalk.red),
+    row('latency', results, keys, 'latency', chalk.red, chalk.green)
   ], {
     border: table.getBorderCharacters('void'),
     columnDefault: {
@@ -175,19 +187,24 @@ function printComparisonTable (results, a, b) {
   console.log(out)
 }
 
-function row (title, results, keys, prop) {
+function row (title, results, keys, prop, positive, negative) {
   const res = keys.map(function (k) {
     const base = results[k][prop]
+    const diff = parseFloat(base.difference)
+    const aWins = !base.valid && diff > 5
+    const bWins = !base.valid && diff < -5
+
     var color = noColor
-    if (base.aWins) {
-      color = chalk.green
-    } else if (base.bWins) {
-      color = chalk.red
+    if (aWins) {
+      color = positive
+    } else if (bWins) {
+      color = negative
     }
+
     return color(base.difference + ' ' + base.significant)
   })
 
-  res.unshift(title)
+  res.unshift(chalk.bold(title))
 
   return res
 }
