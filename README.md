@@ -7,7 +7,7 @@ a HTTP/1.1 benchmark for Node.js
 Run your [autocannon][] benchmarks as part of your CI/dev flow, for Node.js.
 
 It can also generate a little website containing all the result of your
-benchmarking, including flamegraphs:
+benchmarking, including [flamegraphs with 0x](https://github.com/davidmarkclements/0://github.com/davidmarkclements/0x):
 
 * [Dashboard](https://s3-us-west-2.amazonaws.com/autocannon-ci-test/index.html)
 * [Job page](https://s3-us-west-2.amazonaws.com/autocannon-ci-test/run-2/index.html)
